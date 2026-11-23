@@ -1,0 +1,19 @@
+services:
+  ecommerce:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: threadcraft-ecommerce:latest
+    container_name: threadcraft_ecommerce
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - DATA_DIR=/app/data
+      - DATABASE_PATH=/app/data/ecommerce.db
+    volumes:
+      # Persistent SQLite database storage on host machine
+      - ./data:/app/data
